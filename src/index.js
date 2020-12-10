@@ -1,22 +1,18 @@
 import "./index.css";
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-function Lake() {
-  return <h1> lake</h1>;
-}
-
-function SkiResort() {
-  return <h1> ski resort</h1>;
-}
-
 function App() {
+  const [status, setStatus] = useState("Open");
   return (
-    // the empty <> allows you to render multiple components without having to clutter up your application with extra divs
-    <>
-      <Lake />
-      <SkiResort />
-    </>
+    <div>
+      <h1>Status: {status}</h1>
+      <button onClick={() => setStatus("Closed")}>Closed</button>
+      <button onClick={() => setStatus("Open")}>Open</button>
+      <button onClick={() => setStatus("Sorry we'll be back in a bit")}>
+        Come back soon
+      </button>
+    </div>
   );
 }
 ReactDOM.render(
