@@ -1,26 +1,25 @@
 import "./index.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-function Lake() {
-  return <h1> lake</h1>;
-}
-
-function SkiResort() {
-  return <h1> ski resort</h1>;
-}
-
-function App() {
+function Checkbox() {
+  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    alert(`checked: ${checked.toString()}`);
+  });
   return (
-    // the empty <> allows you to render multiple components without having to clutter up your application with extra divs
     <>
-      <Lake />
-      <SkiResort />
+      <input
+        type="checkbox"
+        value={checked}
+        onChange={() => setChecked((checked) => !checked)}
+      />
+      {checked ? "checked" : "not checked"}
     </>
   );
 }
 ReactDOM.render(
-  <App />,
+  <Checkbox />,
 
   document.getElementById("root")
 );
