@@ -1,43 +1,24 @@
 import "./index.css";
-import React, { useState, useEffect } from "react";
-// hooks
+import React, { useReducer } from "react";
+
+// useReducer hooks
 import ReactDOM from "react-dom";
 
-function GitHubUser({ login }) {
-  // using useState hooks to set initial state of data to null, and setData to change value later on.
-  const [data, setData] = useState(null);
+function Checkbox() {
+  // setting the two values of useReducer (checked and toggle) to be initially be false(checked value) and to toggle to the opposite of whatever current state is on when the on change is called(toggle).
+  // if inital state is false the toggle will change it to to true onChange.
+  const [checked, toggle] = useReducer((checked) => !checked, false);
 
-  // using useEffect to fetch to the GitHub API with username as the endpoint
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${login}`)
-      // turning the respons from the API into JSON
-      .then((resp) => resp.json())
-      // using setData hooks to change the state value to whatever is output
-      .then(setData)
-      .catch(console.error);
-  }, []);
-
-  if (data) {
-    // this reuturns the stringified JSON information
-    // return <div>{JSON.stringify(data)}</div>;
-
-    return (
-      <div>
-        <h1>{data.login}</h1>
-        <img src={data.avatar_url} width={100} />
-        <p>{data.html_url}</p>
-      </div>
-    );
-  }
-  // if no user return null
-  return null;
+  return (
+    <>
+      <input type="checkbox" value={checked} onChange={toggle} />
+      {checked ? "checked" : "not checked"}
+    </>
+  );
 }
 
-function App() {
-  return <GitHubUser login="dbpatnode" />;
-}
 ReactDOM.render(
-  <App />,
+  <Checkbox />,
 
   document.getElementById("root")
 );
